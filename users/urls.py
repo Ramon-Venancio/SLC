@@ -1,9 +1,10 @@
 from django.urls import path
 from . import views
 
+app_name = 'users'
+
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('cadastrar', views.index, name='cadastrar'),
-    path('login', views.login, name='login'),
+    path('login.html', views.login, name='login'),
+    path('cadastrar.html', views.cadastrar, name='cadastro'),
     path('logout', views.logout, name='logout'),
 ]

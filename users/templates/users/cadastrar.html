@@ -1,19 +1,15 @@
 {% extends "users/layout.html" %}
 
 {% block body %}
-    {% if message %}
-        <div>{{ message }}</div>
-    {% endif %}
-    <br><br>
-    <form action="{% url 'users:login' %}" method="POST">
+    <form action="{% url 'users:cadastro' %}" method="post">
         {% csrf_token %}
         <input type="text" placeholder="Username..." name="username">
         <br><br>
+        <input type="email" placeholder="Email..." name="email">
+        <br><br>
         <input type="password" placeholder="Senha..." name="senha">
         <br><br>
-        <input type="submit" value="Logar">
+        <input type="submit" value="cadastrar">
         <br>
-        <br>
-        <a href="cadastrar.html">Cadastrar</a>
     </form>
 {% endblock %}
