@@ -1,13 +1,29 @@
-{% extends "users/layout.html" %}
+{% extends "tasks/layout.html" %}
 
 {% block body %}
-    <h1>Bem vindo {{ name }} <br> Compre aqui o que você precisa</h1>
+    <h1>
+        Bem vindo<br>
+        Faça sua lista de compras:
+    </h1>
+
+    <h2>Crie uma categoria</h2>
+    <form action="{% url 'tasks:index' %}" method="post">
+        {% csrf_token %}
+        <input type="text" placeholder="Digite a categoria" name="categoria">
+        <br><br>
+        <input type="submit" value="Criar">
+    </form>
     <br>
-    <br>
-    <h3>Seções:</h3>
-    <ul>
-        <li><a href="">Limpeza</a></li>
-        <li><a href=""></a>Cozinha</li>
-        <li><a href=""></a>Esporte</li>
-    </ul>
+
+    <h2>Suas categorias:</h2>
+    {% for categoria in categorias %}
+        <h3>{{ categoria }}</h3>
+        <form action="{% url 'tasks:index' %}" method="post">
+            <input type="text" placeholder="Digite o produto" name="produto">
+            <input type="number" placeholder="Digite a quantidade" name="quantidade">
+            <br><br>
+            <input type="submit" value="Criar">
+        </form>
+    {% endfor %}
+
 {% endblock %}
