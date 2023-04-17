@@ -7,10 +7,9 @@ from django.urls import reverse
 
 
 @login_required(login_url="users:login")
-def index(request, categoria_id=0):   
+def index(request):
     return render(request, 'tasks/index.html', {
         'categorias': Category.objects.all(),
-        'categoria_id': categoria_id
         })
 
 
@@ -33,4 +32,22 @@ def criar_produto(request, categoria_id):
 
         produto.categorias.add(categoria)
 
-        return HttpResponseRedirect(reverse("tasks:index", args=(categoria_id)))    
+        for produto in categoria.produtos.all():
+            print(produto)
+            print(type(produto.quantidade))
+
+        return HttpResponseRedirect(reverse("tasks:index"))
+
+def deletar_produto(request, produto_id):
+    if request.method == 'POST':
+        produto = Product.objects.get(id=produto_id)
+        produto.delete()
+
+        return HttpResponseRedirect(reverse("tasks:index"))
+    
+def deletar_categoria(request, categoria_id):
+    if request.method == 'POST':
+        categoria = Category.objects.get(id=categoria_id)
+        categoria.delete()
+
+        return HttpResponseRedirect(reverse("tasks:index"))
