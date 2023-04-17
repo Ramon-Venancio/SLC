@@ -1,6 +1,7 @@
 {% extends "users/layout.html" %}
 
 {% block body %}
+    <br>
     <form action="{% url 'users:cadastro' %}" method="post">
         {% csrf_token %}
         <input type="text" placeholder="Username..." name="username">
@@ -10,6 +11,7 @@
         <input type="password" placeholder="Senha..." name="senha">
         <br><br>
         <input type="submit" value="Cadastrar">
-        <br>
+        <br><br>
+        <a href="{% url 'users:login' %}">Login</a>
     </form>
 {% endblock %}
