@@ -1,7 +1,11 @@
 {% extends "tasks/layout.html" %}
 
 {% block body %}
-    
+    <style>
+        input[type="submit" i] {
+            cursor: pointer;
+        }
+    </style>
     <h1>
         Bem vindo<br>
         Faça sua lista de compras:
@@ -21,11 +25,15 @@
 
     <h2>Suas categorias:</h2>
     {% for categoria in categorias %}
-        <h3>{{ categoria }}</h3>
-        <form action="{% url 'tasks:deletar_categoria' categoria.id %}" method="post" float="right">
-            {% csrf_token %}
-            <input type="submit" value="Deletar">
-        </form>
+        <div style="display: flex; align-items: center;">
+            <h3>{{ categoria }}</h3>
+            <div style="margin-left: 12px;">
+                <form action="{% url 'tasks:deletar_categoria' categoria.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Deletar">
+                </form>
+            </div>
+        </div>
 
         <form action="{% url 'tasks:criar_produto' categoria.id %}" method="post">
             {% csrf_token %}
@@ -34,15 +42,19 @@
             <br><br>
             <input type="submit" value="Criar">
         </form>
-
-        <h4>Produtos:</h4>
-        {% for produto in categoria.produtos.all %}
-            <p>{{ produto }} ({{ produto.quantidade }})</p>
-            <form action="{% url 'tasks:deletar_produto' produto.id %}" method="post" float="right">
-                {% csrf_token %}
-                <input type="submit" value="Deletar">
-            </form>
-        {% endfor %}
         <br>
+
+        <h3>Produtos:</h3>
+        {% for produto in categoria.produtos.all %}
+            <div style="display: flex; align-items: center;">
+                <p>{{ produto }} ({{ produto.quantidade }})</p>
+                <div style="margin-left: 12px;">
+                    <form action="{% url 'tasks:deletar_produto' produto.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Deletar">
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
     {% endfor %}
 {% endblock %}

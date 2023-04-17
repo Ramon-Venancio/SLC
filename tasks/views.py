@@ -32,10 +32,6 @@ def criar_produto(request, categoria_id):
 
         produto.categorias.add(categoria)
 
-        for produto in categoria.produtos.all():
-            print(produto)
-            print(type(produto.quantidade))
-
         return HttpResponseRedirect(reverse("tasks:index"))
 
 def deletar_produto(request, produto_id):
@@ -48,6 +44,11 @@ def deletar_produto(request, produto_id):
 def deletar_categoria(request, categoria_id):
     if request.method == 'POST':
         categoria = Category.objects.get(id=categoria_id)
+
+        for produto_name in categoria.produtos.all():
+            produto = Product.objects.get(name=produto_name)
+            produto.delete()
+
         categoria.delete()
 
         return HttpResponseRedirect(reverse("tasks:index"))
