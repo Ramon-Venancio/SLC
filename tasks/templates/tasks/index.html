@@ -21,9 +21,11 @@
         <br><br>
         <input type="submit" value="Criar">
     </form>
+
     <br>
 
     <h2>Suas categorias:</h2>
+    <hr>
     {% for categoria in categorias %}
         <div style="display: flex; align-items: center;">
             <h3>{{ categoria }}</h3>
@@ -34,7 +36,7 @@
                 </form>
             </div>
         </div>
-
+        <h4>Criar produto</h4>
         <form action="{% url 'tasks:criar_produto' categoria.id %}" method="post">
             {% csrf_token %}
             <input type="text" placeholder="Digite o produto" name="produto">
@@ -45,16 +47,22 @@
         <br>
 
         <h3>Produtos:</h3>
-        {% for produto in categoria.produtos.all %}
-            <div style="display: flex; align-items: center;">
-                <p>{{ produto }} ({{ produto.quantidade }})</p>
-                <div style="margin-left: 12px;">
-                    <form action="{% url 'tasks:deletar_produto' produto.id %}" method="post">
-                        {% csrf_token %}
-                        <input type="submit" value="Deletar">
-                    </form>
-                </div>
-            </div>
-        {% endfor %}
+        <ul>
+            {% for produto in categoria.produtos.all %}
+                <li>
+                    <div style="display: flex; align-items: center;">
+                        <p>{{ produto }} ({{ produto.quantidade }})</p>
+                        <div style="margin-left: 12px;">
+                            <form action="{% url 'tasks:deletar_produto' produto.id %}" method="post">
+                                {% csrf_token %}
+                                <input type="submit" value="Deletar">
+                            </form>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}      
+        </ul>
+
+        <br><hr>
     {% endfor %}
 {% endblock %}

@@ -2,9 +2,12 @@
 
 {% block body %}
     {% if message %}
-        <div>{{ message }}</div>
+        <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+            {{ message }}
+        </div>
     {% endif %}
     <br><br>
+    <h1>Faça o login</h1>
     <form action="{% url 'users:login' %}" method="POST">
         {% csrf_token %}
         <input type="text" placeholder="Username..." name="username">

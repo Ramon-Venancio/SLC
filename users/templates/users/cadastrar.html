@@ -1,7 +1,7 @@
 {% extends "users/layout.html" %}
 
 {% block body %}
-    <br>
+    <h1>Faça o cadastro</h1>
     <form action="{% url 'users:cadastro' %}" method="post">
         {% csrf_token %}
         <input type="text" placeholder="Username..." name="username">
