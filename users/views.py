@@ -44,7 +44,7 @@ def login(request):
             return HttpResponseRedirect(reverse('tasks:index'))
 
         else:
-            return HttpResponse('Nome ou senha invalidos!')
+            return render(request, 'users/login.html', {'message': 'Nome ou senha invalidos!'})
     return render(request, 'users/login.html')
 
 # Função para deslogar o usuario:
